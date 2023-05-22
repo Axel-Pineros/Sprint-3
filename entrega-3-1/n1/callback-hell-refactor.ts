@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
-const reverseText = (str: string) => str.split("").reverse().join("");
+export const reverseText = (str: string) => str.split("").reverse().join("");
 
 try {
     const files: string[] = readdirSync(join(__dirname, "inbox"));
@@ -18,4 +18,4 @@ catch (error: unknown) {
     error instanceof Error ? console.log(`Error: ${error.message}`) : console.log(`Error: ${error}`);
 }
 
-// module.exports = reverseText;
+module.exports = reverseText;
