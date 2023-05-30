@@ -3,19 +3,43 @@
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
-export const reverseText = (str: string) => str.split("").reverse().join("");
+const inbox: string = join(__dirname, "inbox");
+const outbox: string = join(__dirname, "outbox");
 
-try {
-    const files: string[] = readdirSync(join(__dirname, "inbox"));
-    files.forEach((file: string) => {
-        const data: string = readFileSync(join(__dirname, "inbox", file), "utf-8");
-        writeFileSync(join(__dirname, "outbox", file), reverseText(data));
-        console.log(`${file} s'ha guardat a la carpeta outbox!`);
-    });
-}
+const reverseText = (str: string): string => str.split("").reverse().join("");
 
-catch (error: unknown) {
-    error instanceof Error ? console.log(`Error: ${error.message}`) : console.log(`Error: ${error}`);
-}
+const arxius: string[] = [];
+const contingutArxius: string[] = [];
 
-module.exports = reverseText;
+(function llegirDirectori() {
+    try {
+        readdirSync(inbox).forEach(element => {
+            arxius.push(element);
+        });
+    } catch (error: unknown) {
+        throw ("Error: la carpeta no existeix");
+    }
+})();
+
+(function llegirArxius() {
+    try {
+        if (arxius.length > 0) {
+            for (let member of arxius) {
+                contingutArxius.push(readFileSync(join(inbox, member), "utf-8"));
+            }
+        } else throw new Error;
+    } catch (error: unknown) {
+        throw ("Error: no hi ha arxius");
+    }
+})();
+
+(function escriureArxius() {
+    try {
+        for (let i: number = 0; i < arxius.length; i++) {
+            writeFileSync(join(outbox, arxius[i]), reverseText(contingutArxius[i]));
+            console.log(`${arxius[i]} s'ha guardat a la carpeta outbox!`)
+        }
+    } catch (error: unknown) {
+        throw ("Error: no s'ha pogut guardar els arxius");
+    }
+})();
