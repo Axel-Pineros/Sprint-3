@@ -32,7 +32,7 @@ export class Player {
     }
 }
 
-class Game {
+export class Game {
     players: Player[];
     marcador: Marcador;
 
@@ -57,7 +57,7 @@ class Game {
     }
 }
 
-class Marcador {
+export class Marcador {
     private static instance: Marcador;
     players: Player[];
 
@@ -100,4 +100,4 @@ game.addPoints(player1, 5);
 game.addPoints(player1, 5);
 game.addPoints(player2, 5);
 
-module.exports = { Player, Game, Marcador }
+// module.exports = { Player, Game, Marcador }
