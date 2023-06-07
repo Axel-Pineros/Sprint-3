@@ -1,40 +1,66 @@
-// import {sumar,restar,multiplicar} from "../../n1/n1-e1"
+import { MathApp } from '../../n1/app';
+import Middlewares from '../../n1/middlewares';
 
+jest.mock('fs', () => ({
+    readFileSync: jest.fn(() => '{"num1": 5, "num2": 3}'),
+}));
 
-//const data: Operations = JSON.parse(readFileSync('data.json', 'utf-8'));
+describe('Middlewares i MathApp', () => {
 
-describe("Middleware", () => {
+    describe('MathApp', () => {
+        let mathApp: MathApp;
 
-    const { sumar, restar, multiplicar } = require("../../n1/n1-e1");
-    // import * as fs from 'fs';
+        beforeEach(() => {
+            mathApp = new MathApp();
+        });
 
-    const data: Operations = require('./data.json')
-
-    interface Operations {
-        a: number;
-        b: number;
-    }
-    describe("Funcions sumar, restar i multiplicar", () => {
-
-
-        describe("Funció sumar", () => {
-
-            test('Retorna la suma de 2 números', () => {
-                expect(sumar(data.a, data.b)).toBe(8);
+        describe('sum()', () => {
+            test('Calcula la suma de 2 números amb la intervenció del middleware', () => {
+                const result = mathApp.sum({ num1: 5, num2: 3 });
+                expect(result).toBe(8177);
             });
         });
 
-        describe("Funció restar", () => {
-
-            test('Retorna la resta de 2 números', () => {
-                expect(restar(data.a, data.b)).toBe(2);
+        describe('subtract()', () => {
+            test('Calcula la resta de 2 números amb la intervenció del middleware', () => {
+                const result = mathApp.subtract({ num1: 5, num2: 3 });
+                expect(result).toBe(7448);
             });
         });
 
-        describe("Funció multiplicar", () => {
+        describe('multiply()', () => {
+            test('Calcula la multiplicació de 2 números amb la intervenció del middleware', () => {
+                const result = mathApp.multiply({ num1: 5, num2: 3 });
+                expect(result).toBe(2847656.25);
+            });
+        });
+    });
 
-            test('Retorna la multiplicació de 2 números', () => {
-                expect(multiplicar(data.a, data.b)).toBe(15);
+    describe('Middlewares', () => {
+        let middlewares: Middlewares;
+
+        beforeEach(() => {
+            middlewares = new Middlewares();
+        });
+
+        describe('square()', () => {
+            test(`Calcula correctament el quadrat d'un número`, () => {
+                const result = middlewares.square(4);
+                expect(result).toBe(16);
+            });
+        });
+
+        describe('cube()', () => {
+            test(`Calcula correctament el cub d'un número`, () => {
+                const result = middlewares.cube(3);
+                expect(result).toBe(27);
+            });
+        });
+
+        describe('divideByTwo()', () => {
+            test(`Calcula correctament la divisió entre 2 d'un número`, () => {
+                const result = middlewares.divideByTwo(10);
+                expect(result).toBe(5);
             });
         });
     });
