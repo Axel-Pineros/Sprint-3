@@ -43,3 +43,5 @@ const contingutArxius: string[] = [];
         throw ("Error: no s'ha pogut guardar els arxius");
     }
 })();
+
+module.exports = reverseText;
