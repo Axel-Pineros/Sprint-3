@@ -1,4 +1,4 @@
-import { Player, Game } from "../../singleton";
+import { Player, Game, Marcador } from "../../singleton";
 
 describe("Singleton", () => {
 
@@ -54,6 +54,36 @@ describe("Singleton", () => {
             game.removePoints(player1, 5);
             expect(player1.getPoints()).toBe(15);
             expect(player2.getPoints()).toBe(30);
+        });
+    });
+
+    describe('Classe Marcador', () => {
+        let marcador: Marcador;
+        let player1: Player;
+        let player2: Player;
+        let player3: Player;
+
+        beforeEach(() => {
+            marcador = Marcador.getInstance();
+            player1 = new Player('John');
+            player2 = new Player('Jane');
+            player3 = new Player('Alice');
+            marcador.addPlayer(player1);
+            marcador.addPlayer(player2);
+            marcador.addPlayer(player3);
+        });
+
+        test('update() mostrarà la el text corresponent a la consola', () => {
+            player1.addPoints(10);
+            player2.addPoints(5);
+            player3.addPoints(8);
+
+            console.log = jest.fn();
+            marcador.update();
+            expect(console.log).toHaveBeenCalledWith('Puntuació');
+            expect(console.log).toHaveBeenCalledWith('John: 10');
+            expect(console.log).toHaveBeenCalledWith('Jane: 5');
+            expect(console.log).toHaveBeenCalledWith('Alice: 8');
         });
     });
 });
