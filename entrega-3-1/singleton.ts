@@ -99,5 +99,3 @@ game.addPlayer(player2);
 game.addPoints(player1, 5);
 game.addPoints(player1, 5);
 game.addPoints(player2, 5);
-
-// module.exports = { Player, Game, Marcador }

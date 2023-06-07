@@ -3,11 +3,11 @@
 import { EventEmitter } from 'events';
 const myEmitter: EventEmitter = new EventEmitter();
 
-class Usuari {
+export class Usuari {
     constructor(public nom: string) {}
 }
 
-class Tema {
+export class Tema {
     private events = myEmitter;
     constructor(public nom: string) {}
 
