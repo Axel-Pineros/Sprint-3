@@ -13,7 +13,7 @@ interface OperationParams {
     num2: number;
 }
 
-class MathApp {
+export class MathApp {
     private middlewares: Middlewares;
 
     constructor() {
@@ -30,8 +30,8 @@ class MathApp {
 
     sum(params: OperationParams): number {
         const { num1, num2 } = params;
-        const modifiedNum1: number = this.applyMiddlewares(num1, [this.middlewares.square, this.middlewares.divideByTwo]);
-        const modifiedNum2: number = this.applyMiddlewares(num2, [this.middlewares.cube, this.middlewares.divideByTwo]);
+        const modifiedNum1: number = this.applyMiddlewares(num1, [this.middlewares.square, this.middlewares.cube, this.middlewares.divideByTwo]);
+        const modifiedNum2: number = this.applyMiddlewares(num2, [this.middlewares.square, this.middlewares.cube, this.middlewares.divideByTwo]);
 
         console.log(`Sum operation: ${modifiedNum1} + ${modifiedNum2}`);
         const result = modifiedNum1 + modifiedNum2;
@@ -40,8 +40,8 @@ class MathApp {
 
     subtract(params: OperationParams): number {
         const { num1, num2 } = params;
-        const modifiedNum1: number = this.applyMiddlewares(num1, [this.middlewares.cube, this.middlewares.divideByTwo]);
-        const modifiedNum2: number = this.applyMiddlewares(num2, [this.middlewares.square, this.middlewares.divideByTwo]);
+        const modifiedNum1: number = this.applyMiddlewares(num1, [this.middlewares.square, this.middlewares.cube, this.middlewares.divideByTwo]);
+        const modifiedNum2: number = this.applyMiddlewares(num2, [this.middlewares.square, this.middlewares.cube, this.middlewares.divideByTwo]);
 
         console.log(`Subtraction operation: ${modifiedNum1} - ${modifiedNum2}`);
         const result = modifiedNum1 - modifiedNum2;
@@ -50,8 +50,8 @@ class MathApp {
 
     multiply(params: OperationParams): number {
         const { num1, num2 } = params;
-        const modifiedNum1: number = this.applyMiddlewares(num1, [this.middlewares.square, this.middlewares.divideByTwo]);
-        const modifiedNum2: number = this.applyMiddlewares(num2, [this.middlewares.square, this.middlewares.divideByTwo]);
+        const modifiedNum1: number = this.applyMiddlewares(num1, [this.middlewares.square, this.middlewares.cube, this.middlewares.divideByTwo]);
+        const modifiedNum2: number = this.applyMiddlewares(num2, [this.middlewares.square, this.middlewares.cube, this.middlewares.divideByTwo]);
 
         console.log(`Multiplication operation: ${modifiedNum1} * ${modifiedNum2}`);
         const result = modifiedNum1 * modifiedNum2;
